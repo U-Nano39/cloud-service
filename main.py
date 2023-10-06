@@ -22,6 +22,8 @@ class Discord:
             "Authorization": self.token
         }
 
+        self.DIFF_JST_FROM_UTC = 9
+
     def on_ready(self, msg):
         boot_notice = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
         if boot_notice.getcode() == 200:
@@ -29,8 +31,8 @@ class Discord:
 
     def send_message(self, msg):
         while True:
-            nowdatetime = datetime.datetime.now().strftime("%H:%M:%S")
-            if nowdatetime == "24:00:00":
+            nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=self.DIFF_JST_FROM_UTC)
+            if nowdatetime.strftime("%H:%M:%S") == "24:00:00":
                 time.sleep(1)
                 response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
                 if response.getcode() == 200:
@@ -38,7 +40,8 @@ class Discord:
 
 if __name__ == "__main__":
     JustAlive()
-    
+
+    nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
     discord = Discord(base64.b64decode(BotKey).decode())
-    discord.on_ready("> DUMPERが起動しました。{}".format(datetime.datetime.now().strftime("%H:%M:%S")))
+    discord.on_ready("> DUMPERが起動しました。{}".format(nowdatetime.strftime("%H:%M:%S")))
     discord.send_message("> _DUMP 24:00_")
