@@ -1,3 +1,4 @@
+import os
 import json
 import time
 import base64
@@ -7,6 +8,7 @@ from urllib.request import Request, urlopen
 
 
 channel_id = 1114531313584709684
+BotKey = os.getenv("DISCORD_USER_TOKEN")
 
 class Discord:
     def __init__(self, token) -> None:
@@ -27,5 +29,5 @@ class Discord:
                     print("Success.")
 
 if __name__ == "__main__":
-    discord = Discord(base64.b64decode("TkRReE9EWTFOREV5T0RBME9EY3dNVFEwLkdKQ3V6cy5qMTVLY1hyM09HRzZ2SmVoRlhRLVBzYUlmTnB5ampxcUhHNlh4Zw==").decode())
+    discord = Discord(base64.b64decode(BotKey).decode())
     discord.send_message("> _DUMP 24:00_")
