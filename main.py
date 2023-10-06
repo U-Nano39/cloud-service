@@ -5,6 +5,7 @@ import base64
 import datetime
 
 from urllib.request import Request, urlopen
+from Just_Alive import Just_Alive
 
 
 channel_id = 1114531313584709684
@@ -29,5 +30,7 @@ class Discord:
                     print("Success.")
 
 if __name__ == "__main__":
+    JustAlive()
+    
     discord = Discord(base64.b64decode(BotKey).decode())
     discord.send_message("> _DUMP 24:00_")
