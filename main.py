@@ -5,7 +5,7 @@ import base64
 import datetime
 
 from urllib.request import Request, urlopen
-from Just_Alive import Just_Alive
+from JustAlive import JustAlive
 
 
 channel_id = 1114531313584709684
