@@ -43,5 +43,5 @@ if __name__ == "__main__":
 
     nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
     discord = Discord(base64.b64decode(BotKey).decode())
-    discord.on_ready("> DUMPERが起動しました。{}".format(nowdatetime.strftime("%H:%M:%S")))
+    discord.on_ready("> DUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-dump-selfbot.onrender.com)")
     discord.send_message("> _DUMP 24:00_")
