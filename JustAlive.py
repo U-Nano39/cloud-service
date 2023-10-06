@@ -10,6 +10,6 @@ def home():
 def run():
     app.run(host="0.0.0.0", port="8000")
 
-def Just_Alive():
+def JustAlive():
     thread = Thread(target=run)
     thread.start()
