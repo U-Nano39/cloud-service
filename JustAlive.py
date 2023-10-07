@@ -5,7 +5,7 @@ app = Flask("")
 
 @app.route("/")
 def index():
-    return render_template("/SelfBot/index.html")
+    return render_template("SelfBot/index.html")
 
 def run():
     app.run(host="0.0.0.0", port="8000")
