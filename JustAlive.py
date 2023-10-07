@@ -3,9 +3,9 @@ from threading import Thread
 
 app = Flask("")
 
-@app.route("/")
+@app.route("/SelfBot")
 def index():
-    return render_template("SelfBot/index.html")
+    return render_template("index.html")
 
 def run():
     app.run(host="0.0.0.0", port="8000")
