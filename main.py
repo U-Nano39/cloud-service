@@ -53,7 +53,8 @@ class Discord:
             if self.message_content().startswith("r#cmd"):
                 cmd = self.message_content().strip("r#cmd ").split("")
                 proc = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                self.send_message(f"``[cmd] {" ".join(cmd)}``\n```{proc.communicate()[0].decode('UTF-8')}```")
+                cmd_r = " ".join(cmd)
+                self.send_message(f"``[cmd] {cmd_r}``\n```{proc.communicate()[0].decode('UTF-8')}```")
             time.sleep(0.5) 
 
 if __name__ == "__main__":
