@@ -52,7 +52,7 @@ class Discord:
         while True:
             if self.message_content().startswith("r#cmd"):
                 cmd = self.message_content().strip("r#cmd ")
-                proc = subprocess.Popen([cmd], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                proc = subprocess.Popen([cmd.split()], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 self.send_message(f"```{proc}```")
             time.sleep(0.5) 
 
@@ -60,6 +60,6 @@ if __name__ == "__main__":
     JustAlive()
 
     discord = Discord(base64.b64decode(BotKey).decode())
-    discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
+    discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com) \n > {}".format(os.getcwd()))
     discord.render_shell()
     discord.bump_message("> _BUMP 24:00_")
