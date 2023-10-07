@@ -45,7 +45,7 @@ class Discord:
                     print("Success.")
 
     def message_content(self):
-        response = json.loads(urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, method="GET").read().decode())
+        response = json.loads(urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, method="GET").read().decode()))
         return response[0]["content"]
         
     def render_shell(self):
