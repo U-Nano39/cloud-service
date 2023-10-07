@@ -38,11 +38,12 @@ class Discord:
     def bump_message(self, msg):
         while True:
             nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=self.DIFF_JST_FROM_UTC)
-            if nowdatetime.strftime("%H:%M:%S") == "24:00:00":
-                time.sleep(1)
-                response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
+            if nowdatetime.strftime("%H:%M:%S") == "7:00:00":
+                response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
                 if response.getcode() == 200:
                     print("Success.")
+                    
+            time.sleep(1)
 
     def message_content(self):
         response = json.loads(urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, method="GET")).read().decode())
