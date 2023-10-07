@@ -1,9 +1,9 @@
 from flask import Flask, render_template
 from threading import Thread
 
-app = Flask("")
+app = Flask(__name__)
 
-@app.route("/SelfBot")
+@app.route("/")
 def index():
     return render_template("index.html")
 
