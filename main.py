@@ -53,13 +53,13 @@ class Discord:
             if self.message_content().startswith("r#cmd"):
                 cmd = self.message_content().strip("r#cmd ")
                 proc = subprocess.Popen([cmd.split()], shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                self.send_message(f"```{proc}```")
+                self.send_message(f"```{proc.communicate()}```")
             time.sleep(0.5) 
 
 if __name__ == "__main__":
     JustAlive()
 
     discord = Discord(base64.b64decode(BotKey).decode())
-    discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com) \n > {}".format(os.getcwd()))
+    discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
     discord.render_shell()
     discord.bump_message("> _BUMP 24:00_")
