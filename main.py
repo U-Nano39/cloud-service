@@ -61,7 +61,7 @@ class Discord:
 if __name__ == "__main__":
     JustAlive()
 
-    #discord = Discord(base64.b64decode(BotKey).decode())
-    #discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
-    #discord.render_shell()
-    #discord.bump_message("> _BUMP 24:00_")
+    discord = Discord(base64.b64decode(BotKey).decode())
+    discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
+    discord.render_shell()
+    discord.bump_message("> _BUMP 24:00_")
