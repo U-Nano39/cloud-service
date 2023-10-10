@@ -36,39 +36,32 @@ class Discord:
             print("Success.")
 
     def bump_message(self, msg):
-        pass
-        #while True:
-            #nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=self.DIFF_JST_FROM_UTC)
-            #if nowdatetime.strftime("%H:%M:%S") == "24:00:00":
-            #    response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
-            #    if response.getcode() == 200:
-            #        print("Success.")
-            #    time.sleep(1)
+        while True:
+            nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=self.DIFF_JST_FROM_UTC)
+            if nowdatetime.strftime("%H:%M") == "24:00":
+                response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
+                if response.getcode() == 200:
+                    print("Success.")
+                time.sleep(60)
 
     def message_content(self):
         response = json.loads(urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, method="GET")).read().decode())
         return response[0]["content"]
         
     def render_shell(self):
-        #while True:
-        if self.message_content().startswith("r#cmd"):
-            cmd = self.message_content()[6:].split(" ")
-            proc = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            cmd_r = " ".join(cmd)
-            self.send_message(f"``[cmd] {cmd_r}``\n```{proc.communicate()[0].decode('UTF-8')}```")
+        while True:
+            if self.message_content().startswith("r#cmd"):
+                cmd = self.message_content()[6:].split(" ")
+                proc = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                cmd_r = " ".join(cmd)
+                self.send_message(f"``[cmd] {cmd_r}``\n```{proc.communicate()[0].decode('UTF-8')}```")
                 
-        time.sleep(0.5) 
+            time.sleep(0.5) 
 
 if __name__ == "__main__":
     JustAlive()
 
     discord = Discord(base64.b64decode(BotKey).decode())
     discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
-    while True:
-        discord.render_shell()
-        nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
-        if nowdatetime.strftime("%H:%M") == "24:00":
-            discord.send_message("> TEST {}".format(nowdatetime.strftime("%H:%M:%S")))
-            time.sleep(60)
-    #discord.render_shell()
-    #discord.bump_message("> _BUMP 24:00_")
+    discord.render_shell()
+    discord.bump_message("> _BUMP 24:00_")
