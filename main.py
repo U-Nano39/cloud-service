@@ -54,11 +54,11 @@ class Discord:
                 cmd = self.message_content()[6:].split(" ")
                 try:
                     proc = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    cmd_r = " ".join(cmd)
+                    self.send_message(f"``[cmd] {cmd_r}``\n```{proc.communicate()[0].decode('UTF-8')}```")
                 except:
                     cmd_er = " ".join(cmd)
                     self.send_message(f"``[cmd] {cmd_er}``\n```コマンドが存在しません。```")
-                cmd_r = " ".join(cmd)
-                self.send_message(f"``[cmd] {cmd_r}``\n```{proc.communicate()[0].decode('UTF-8')}```")
                 
             time.sleep(0.5) 
 
