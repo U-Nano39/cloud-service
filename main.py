@@ -67,8 +67,8 @@ if __name__ == "__main__":
     while True:
         discord.render_shell()
         nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
-        if nowdatetime.strftime("%H:%M:%S") == nowdatetime.strftime("%H:%M:%S"):
+        if nowdatetime.strftime("%H:%M") == "24:00":
             discord.send_message("> TEST {}".format(nowdatetime.strftime("%H:%M:%S")))
-            time.sleep(1)
+            time.sleep(60)
     #discord.render_shell()
     #discord.bump_message("> _BUMP 24:00_")
