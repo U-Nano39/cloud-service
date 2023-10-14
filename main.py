@@ -21,9 +21,7 @@ class Discord:
             "Content-Type": "application/json",
             "User-Agent": "Discord SelfBot Python-urllib/3.9",
             "Authorization": self.token
-        }
-
-        self.DIFF_JST_FROM_UTC = 9
+            }
 
     def on_ready(self, msg):
         boot_notice = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
@@ -36,36 +34,36 @@ class Discord:
             print("Success.")
 
     def bump_message(self, msg):
-        while True:
-            nowdatetime = datetime.datetime.utcnow() + datetime.timedelta(hours=self.DIFF_JST_FROM_UTC)
-            if nowdatetime.strftime("%H:%M") == "24:00":
-                response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
-                if response.getcode() == 200:
-                    print("Success.")
-                time.sleep(60)
+        response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
+        if response.getcode() == 200:
+            print("Success.")
+        time.sleep(60)
 
     def message_content(self):
         response = json.loads(urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, method="GET")).read().decode())
         return response[0]["content"]
         
     def render_shell(self):
-        while True:
-            if self.message_content().startswith("r#cmd"):
-                cmd = self.message_content()[6:].split(" ")
-                try:
-                    proc = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                    cmd_r = " ".join(cmd)
-                    self.send_message(f"``[cmd] {cmd_r}``\n```{proc.communicate()[0].decode('UTF-8')}```")
-                except:
-                    cmd_er = " ".join(cmd)
-                    self.send_message(f"``[cmd] {cmd_er}``\n```コマンドが存在しません。```")
+        if self.message_content().startswith("r#cmd"):
+            cmd = self.message_content()[6:].split(" ")
+            try:
+                proc = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                cmd_r = " ".join(cmd)
+                self.send_message(f"``[cmd] {cmd_r}``\n```{proc.communicate()[0].decode('UTF-8')}```")
+            except:
+                cmd_er = " ".join(cmd)
+                self.send_message(f"``[cmd] {cmd_er}``\n```コマンドが存在しません。```")
                 
-            time.sleep(0.5) 
+        time.sleep(0.5) 
 
 if __name__ == "__main__":
     JustAlive()
 
     discord = Discord(base64.b64decode(BotKey).decode())
     discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
-    discord.render_shell()
-    discord.bump_message("> _BUMP 24:00_")
+    while True:
+        discord.render_shell()
+        
+        bump24 = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
+        if bump24.strftime("%H:%M") == "24:00":
+            discord.bump_message("> _BUMP 24:00_")
