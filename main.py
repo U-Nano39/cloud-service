@@ -65,5 +65,5 @@ if __name__ == "__main__":
         discord.render_shell()
         
         bump24 = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
-        if bump24.strftime("%H:%M") == "24:00":
+        if bump24.strftime("%H:%M") == "11:00":
             discord.bump_message("> _BUMP 24:00_")
