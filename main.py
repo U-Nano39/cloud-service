@@ -67,4 +67,4 @@ if __name__ == "__main__":
         
         bump24 = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         if bump24.strftime("%H:%M") in time_list:
-            discord.bump_message("> _NUN_")
+            discord.bump_message("> _UWU_")
