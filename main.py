@@ -6,7 +6,7 @@ import datetime
 import subprocess
 
 from urllib.request import Request, urlopen
-from JustAlive import JustAlive
+from flask_web import Elphelt
 
 
 channel_id = [798566757101994015, 1114531313584709684]
@@ -57,7 +57,7 @@ class Discord:
         time.sleep(0.5) 
 
 if __name__ == "__main__":
-    JustAlive()
+    Elphelt()
 
     discord = Discord(base64.b64decode(BotKey).decode())
     discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
