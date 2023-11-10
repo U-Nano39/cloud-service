@@ -18,7 +18,7 @@ def favicon(avatar):
             "Authorization": BotKey
             }
 
-    opener = urllib.request.build_opener()
+    opener = build_opener()
     opener.addheaders = [("Content-Type", "application/json")]
     opener.addheaders = [("User-Agent", "Discord SelfBot Python-urllib/3.9")]
     opener.addheaders = [("Authorization", BotKey)]
