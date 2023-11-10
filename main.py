@@ -90,9 +90,9 @@ class Discord:
         time.sleep(0.5) 
 
 if __name__ == "__main__":
-    Elphelt(devAvatarICO())
-
     discord = Discord(base64.b64decode(BotKey).decode())
+    Elphelt(discord.devAvatarICO())
+    
     discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
     
     while True:
