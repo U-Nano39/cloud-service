@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import random
 import base64
 import datetime
 import subprocess
@@ -35,6 +36,33 @@ class Discord:
             print("Success.")
 
     def bump_message(self, msg):
+        with open("MemberID.list", "r") as f:
+            FileContent = f.read()
+            id_list = FileContent.split()
+            x = random.randint(0, 2463)
+            mid = id_list[x]
+
+        UserInfo = json.loads(urlopen(Request("https://discord.com/api/v9/users/"+mid, headers=self.headers)).read().decode())
+
+        ID = UserInfo["id"]
+        UNAME = UserInfo["username"]
+        AVATAR = UserInfo["avatar"]
+        DSCM = UserInfo["discriminator"]
+        BANNER = UserInfo["banner"]
+
+        binary = bin(int(uid))[2:]
+        zzin = binary.zfill(64)
+        excerpt = zzin[:42]
+        unix = int(str(excerpt), 2) + 1420070400000
+        created_date = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0)
+            
+        if msg is None:
+            if BANNER != None:
+                BANNER_IMG = f"https://cdn.discordapp.com/banners/{ID}/{BANNER}?size=1024"
+                msg = f"> [{UNAME}#{DSCM}] ID: {ID} ACC作成日: {created_date} [アバター](https://cdn.discordapp.com/avatars/{ID}/{AVATAR}) [BANNER]({BANNER_IMG})"
+            else:
+                msg = f"> [{UNAME}#{DSCM}] ID: {ID} ACC作成日: {created_date} [アバター](https://cdn.discordapp.com/avatars/{ID}/{AVATAR})"
+            
         response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
         if response.getcode() == 200:
             print("Success.")
@@ -62,9 +90,10 @@ if __name__ == "__main__":
 
     discord = Discord(base64.b64decode(BotKey).decode())
     discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
+    
     while True:
         discord.render_shell()
         
         bump24 = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         if bump24.strftime("%H:%M") in time_list:
-            pass#discord.bump_message("> _UWU_")
+            discord.bump_message()
