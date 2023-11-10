@@ -12,13 +12,13 @@ app = Flask(__name__)
 #favicon.ico
 def favicon(avatar):
     BotKey = os.getenv("DISCORD_USER_TOKEN")
-    header = {
+    headers = {
             "Content-Type": "application/json",
             "User-Agent": "Discord SelfBot Python-urllib/3.9",
             "Authorization": BotKey
             }
     with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(Request(f"https://discord.com/api/v9/users/441865412804870144/{avatar}", header=header)).read())
+        fvi.write(urlopen(Request(f"https://discord.com/api/v9/users/441865412804870144/{avatar}", headers=headers)).read())
         fvi.close()
     
     favicon = Image.open("static/images/favicon.jpg")
