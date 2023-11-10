@@ -30,6 +30,11 @@ class Discord:
         if boot_notice.getcode() == 200:
             print("Success.")
 
+    def devAvatarICO(self):
+        devdata = UserInfo = json.loads(urlopen(Request("https://discord.com/api/v9/users/441865412804870144", headers=self.headers)).read().decode())
+        devAvatar = devdata["avatar"]
+        return devAvatar
+
     def send_message(self, msg):
         response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
         if response.getcode() == 200:
@@ -85,7 +90,7 @@ class Discord:
         time.sleep(0.5) 
 
 if __name__ == "__main__":
-    Elphelt()
+    Elphelt(devAvatarICO())
 
     discord = Discord(base64.b64decode(BotKey).decode())
     discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
