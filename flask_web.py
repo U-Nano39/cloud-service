@@ -2,6 +2,7 @@ from PIL import Image
 
 from urllib.request import Request, urlopen
 from flask import Flask, render_template
+from flask_socketio import SocketIO
 from threading import Thread
 
 app = Flask(__name__)
@@ -27,8 +28,8 @@ def manage():
 def run():
     app.run(host="0.0.0.0", port="8000")
 
-def Elphelt():
-    favicon()
+def Elphelt(devdata):
+    favicon(devdata)
     
     thread = Thread(target=run)
     thread.start()
