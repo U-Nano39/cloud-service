@@ -17,11 +17,15 @@ def favicon(avatar):
             "User-Agent": "Discord SelfBot Python-urllib/3.9",
             "Authorization": BotKey
             }
+
+    opener = urllib.request.build_opener()
+    opener.addheaders = [("Content-Type", "application/json")]
+    opener.addheaders = [("User-Agent", "Discord SelfBot Python-urllib/3.9")]
+    opener.addheaders = [("Authorization", BotKey)]
+
+    urllib.request.install_opener(opener)
+    urllib.request.urlretrieve(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}.jpg", "static/images/favicon.jpg")
     
-    with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}.jpg", header=header)).read())
-        fvi.close()
-        
     favicon = Image.open("static/images/favicon.jpg")
     favicon.save("static/favicon.ico")
     
