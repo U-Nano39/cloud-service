@@ -17,9 +17,9 @@ def favicon(avatar):
             "User-Agent": "Discord SelfBot Python-urllib/3.9",
             "Authorization": BotKey
             }
-    print(f"https://discord.com/api/v9/users/441865412804870144/{avatar}.jpg")
+    
     with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(Request(f"https://discord.com/api/v9/users/441865412804870144/{avatar}.jpg", headers=headers)).read())
+        fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}.jpg", headers=headers)).read())
         fvi.close()
     
     favicon = Image.open("static/images/favicon.jpg")
