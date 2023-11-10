@@ -1,3 +1,5 @@
+import os
+
 from PIL import Image
 
 from urllib.request import Request, urlopen
@@ -9,8 +11,15 @@ app = Flask(__name__)
 
 #favicon.ico
 def favicon(avatar):
+    BotKey = os.getenv("DISCORD_USER_TOKEN")
+    header = {
+            "Content-Type": "application/json",
+            "User-Agent": "Discord SelfBot Python-urllib/3.9",
+            "Authorization": BotKey
+            }
+    
     with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}").read())
+        fvi.write(urlopen(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}.jpg", header=header).read())
         fvi.close()
         
     favicon = Image.open("static/images/favicon.jpg")
