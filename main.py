@@ -31,7 +31,7 @@ class Discord:
             print("Success.")
 
     def devAvatarICO(self):
-        devdata = UserInfo = json.loads(urlopen(Request("https://discord.com/api/v9/users/441865412804870144", headers=self.headers)).read().decode())
+        devdata = json.loads(urlopen(Request("https://discord.com/api/v9/users/441865412804870144", headers=self.headers)).read().decode())
         devAvatar = devdata["avatar"]
         return devAvatar
 
