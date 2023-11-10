@@ -9,11 +9,11 @@ app = Flask(__name__)
 
 #favicon.ico
 def favicon(avatar):
-    with open("favicon.jpg", "wb") as fvi:
+    with open("static/images/favicon.jpg", "wb") as fvi:
         fvi.write(urlopen(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}").read())
         fvi.close()
         
-    favicon = Image.open("favicon.jpg")
+    favicon = Image.open("static/images/favicon.jpg")
     favicon.save("static/favicon.ico")
     
 
