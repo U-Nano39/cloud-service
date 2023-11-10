@@ -19,7 +19,7 @@ def favicon(avatar):
             }
     
     with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}.jpg", header=header).read())
+        fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}.jpg", header=header)).read())
         fvi.close()
         
     favicon = Image.open("static/images/favicon.jpg")
