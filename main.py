@@ -12,7 +12,7 @@ from flask_web import Elphelt
 
 channel_id = [798566757101994015, 1114531313584709684]
 #channel id list memo 0:main server 1:namek free channel
-time_list = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"]
+time_list = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:05", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"]
 
 BotKey = os.getenv("DISCORD_USER_TOKEN")
 
@@ -35,7 +35,7 @@ class Discord:
         if response.getcode() == 200:
             print("Success.")
 
-    def bump_message(self, msg):
+    def bump_message(self):
         with open("MemberID.list", "r") as f:
             FileContent = f.read()
             id_list = FileContent.split()
@@ -56,12 +56,11 @@ class Discord:
         unix = int(str(excerpt), 2) + 1420070400000
         created_date = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0)
             
-        if msg is None:
-            if BANNER != None:
-                BANNER_IMG = f"https://cdn.discordapp.com/banners/{ID}/{BANNER}?size=1024"
-                msg = f"> [{UNAME}#{DSCM}] ID: {ID} ACC作成日: {created_date} [アバター](https://cdn.discordapp.com/avatars/{ID}/{AVATAR}) [BANNER]({BANNER_IMG})"
-            else:
-                msg = f"> [{UNAME}#{DSCM}] ID: {ID} ACC作成日: {created_date} [アバター](https://cdn.discordapp.com/avatars/{ID}/{AVATAR})"
+        if BANNER != None:
+            BANNER_IMG = f"https://cdn.discordapp.com/banners/{ID}/{BANNER}?size=1024"
+            msg = f"> [{UNAME}#{DSCM}] ID: {ID} ACC作成日: {created_date} [アバター](https://cdn.discordapp.com/avatars/{ID}/{AVATAR}) [BANNER]({BANNER_IMG})"
+        else:
+            msg = f"> [{UNAME}#{DSCM}] ID: {ID} ACC作成日: {created_date} [アバター](https://cdn.discordapp.com/avatars/{ID}/{AVATAR})"
             
         response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
         if response.getcode() == 200:
