@@ -10,7 +10,7 @@ from threading import Thread
 app = Flask(__name__)
 
 #favicon.ico
-def favicon(DJD):
+def DevInfo(DJD):
     BotKey = os.getenv("DISCORD_BOT_TOKEN")
     headers = {
             "Content-Type": "application/json",
@@ -31,11 +31,20 @@ def favicon(DJD):
     favicon = Image.open("static/images/favicon.jpg")
     favicon.save("static/favicon.ico")
 
-    print(DJD)
+    return DJD
 
 @app.route("/")
 def index():
-    message = "Qvey.#6270"
+    CTX = DevInfo()
+    
+    ID = CTX["id"]
+    UNAME = CTX["username"]
+    AVATAR = CTX["avatar"]
+    DSCM = CTX["discriminator"]
+    BANNER = CTX["banner"]
+    
+    message = UNAME+"#"+DSCM
+    
     return render_template("index.html", message=message)
 
 @app.route("/manage")
