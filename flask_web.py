@@ -42,12 +42,14 @@ def setup():
 @app.route("/")
 def index():
     CTX_D = {}
-    
+
     CTX_D["id"] = DJD["id"]
     CTX_D["uname"] = DJD["username"]
     CTX_D["avatar"] = DJD["avatar"]
     CTX_D["dscm"] = DJD["discriminator"]
     CTX_D["banner"] = DJD["banner"]
+
+    CTX_D["owner"] = CTX_D["uname"]+"#"+CTX_D["dscm"]
     
     return render_template("index.html", message=CTX_D)
 
