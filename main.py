@@ -22,8 +22,12 @@ class Discord:
         self.headers = {
             "Content-Type": "application/json",
             "User-Agent": "Discord SelfBot Python-urllib/3.9",
-            "Authorization": self.token
             }
+
+        if BotKey == os.getenv("DISCORD_BOT_TOKEN"):
+            self.headers["Authorization"] = f"Bot {self.token}"
+        elif BotKey == os.getenv("DISCORD_USER_TOKEN"):
+            self.headers["Authorization"] = self.token
 
     def on_ready(self, msg):
         boot_notice = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
