@@ -7,7 +7,7 @@ import datetime
 import subprocess
 
 from urllib.request import Request, urlopen
-from flask_web import Elphelt
+from flask_web import Qvey
 
 
 channel_id = [798566757101994015, 1114531313584709684]
