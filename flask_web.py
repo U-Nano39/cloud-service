@@ -31,8 +31,6 @@ def DevInfo(DJD):
     favicon = Image.open("static/images/favicon.jpg")
     favicon.save("static/favicon.ico")
 
-    index("hello")
-
 @app.route("/")
 def index(test):
     #CTX = DevInfo()
@@ -55,7 +53,8 @@ def run():
     app.run(host="0.0.0.0", port="8000")
 
 def Elphelt(DD):
-    favicon(DD)
+    DevInfo(DD)
+    index("hello")
     
     thread = Thread(target=run)
     thread.start()
