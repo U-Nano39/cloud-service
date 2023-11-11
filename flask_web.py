@@ -59,7 +59,7 @@ def manage():
 def run():
     app.run(host="0.0.0.0", port="8000")
 
-def Elphelt():
+def Qvey():
     setup()
     
     thread = Thread(target=run)
