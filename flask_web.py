@@ -31,16 +31,11 @@ def favicon(DJD):
     favicon = Image.open("static/images/favicon.jpg")
     favicon.save("static/favicon.ico")
 
-    index(DJD)
+    print(DJD)
 
 @app.route("/")
-def index(CTX):
-    ID = CTX["id"]
-    UNAME = CTX["username"]
-    AVATAR = CTX["avatar"]
-    DSCM = CTX["discriminator"]
-    BANNER = CTX["banner"]
-    message = UNAME+"#"+DSCM
+def index():
+    message = "Qvey.#6270"
     return render_template("index.html", message=message)
 
 @app.route("/manage")
@@ -50,8 +45,8 @@ def manage():
 def run():
     app.run(host="0.0.0.0", port="8000")
 
-def Elphelt(devdata):
-    favicon(devdata)
+def Elphelt(DD):
+    favicon(DD)
     
     thread = Thread(target=run)
     thread.start()
