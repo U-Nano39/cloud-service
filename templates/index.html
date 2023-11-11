@@ -14,6 +14,8 @@
     <p>The system is working properly.</p>
     <script>console.log("Welcome to Qvey's Website.")</script>
     <h1>OWN<span id="pt0">ER</span></h1>
-    <p>content</p>
+    {% if message %}
+    <p>{{message}}</p>
+    {% endif %}
 </body>
 </html>
