@@ -100,7 +100,7 @@ if __name__ == "__main__":
     discord.on_ready("> BUMPERが起動しました。\n > [Render ウェブサイト(SelfBot host)](https://render-discord-bump-selfbot.onrender.com)")
     
     while True:
-        discord.render_shell()
+        #discord.render_shell()
         
         bump24 = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         if bump24.strftime("%H:%M") in time_list:
