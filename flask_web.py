@@ -41,17 +41,15 @@ def setup():
 
 @app.route("/")
 def index():
-    CTX = DJD
+    CTX_D = {}
     
-    ID = CTX["id"]
-    UNAME = CTX["username"]
-    AVATAR = CTX["avatar"]
-    DSCM = CTX["discriminator"]
-    BANNER = CTX["banner"]
+    CTX_D["id"] = DJD["id"]
+    CTX_D["uname"] = DJD["username"]
+    CTX_D["avatar"] = DJD["avatar"]
+    CTX_D["dscm"] = DJD["discriminator"]
+    CTX_D["banner"] = DJD["banner"]
     
-    message = UNAME+"#"+DSCM
-    
-    return render_template("index.html", message=message)
+    return render_template("index.html", message=CTX_D)
 
 @app.route("/manage")
 def manage():
