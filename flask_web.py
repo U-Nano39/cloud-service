@@ -15,7 +15,7 @@ BotKey = os.getenv("DISCORD_BOT_TOKEN")
 headers = {
         "Content-Type": "application/json",
         "User-Agent": "Discord V9API Bot Python-urllib/3.9",
-        "Authorization": BotKey
+        "Authorization": f"Bot {BotKey}"
         }
 
 def developer():
