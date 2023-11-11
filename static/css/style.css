@@ -2,6 +2,10 @@ h1 {
     text-align: center;
 }
 
+#pt0 {
+    color: red;
+}
+
 p {
     text-align: center;
     color: red;
