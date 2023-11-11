@@ -31,19 +31,19 @@ def DevInfo(DJD):
     favicon = Image.open("static/images/favicon.jpg")
     favicon.save("static/favicon.ico")
 
-    return DJD
+    index("hello")
 
 @app.route("/")
-def index():
-    CTX = DevInfo()
+def index(test):
+    #CTX = DevInfo()
     
-    ID = CTX["id"]
-    UNAME = CTX["username"]
-    AVATAR = CTX["avatar"]
-    DSCM = CTX["discriminator"]
-    BANNER = CTX["banner"]
+    #ID = CTX["id"]
+    #UNAME = CTX["username"]
+    #AVATAR = CTX["avatar"]
+    #DSCM = CTX["discriminator"]
+    #BANNER = CTX["banner"]
     
-    message = UNAME+"#"+DSCM
+    message = test #UNAME+"#"+DSCM
     
     return render_template("index.html", message=message)
 
