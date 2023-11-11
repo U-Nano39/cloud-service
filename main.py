@@ -24,7 +24,7 @@ class Discord:
         self.token = token
         self.headers = {
             "Content-Type": "application/json",
-            "User-Agent": "Discord SelfBot Python-urllib/3.9",
+            "User-Agent": "Discord V9APIBot Python-urllib/3.9",
             }
 
         if BotKey == Bot:
