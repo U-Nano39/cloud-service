@@ -1,5 +1,6 @@
 import os
 import json
+import base64
 
 from PIL import Image
 
@@ -14,8 +15,8 @@ BotKey = os.getenv("DISCORD_BOT_TOKEN")
 
 headers = {
         "Content-Type": "application/json",
-        "User-Agent": "Discord V9API Bot Python-urllib/3.9",
-        "Authorization": f"Bot {BotKey}"
+        "User-Agent": "Discord V9APIBot Python-urllib/3.9",
+        "Authorization": f"Bot {base64.b64decode(BotKey).decode()}"
         }
 
 def developer():
