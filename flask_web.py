@@ -1,5 +1,5 @@
 import os
-import main
+import json
 
 from PIL import Image
 
@@ -8,20 +8,23 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 from threading import Thread
 
-DJD = main.Discord().developer()
+
 app = Flask(__name__)
+BotKey = os.getenv("DISCORD_BOT_TOKEN")
 
-#favicon.ico
+headers = {
+        "Content-Type": "application/json",
+        "User-Agent": "Discord V9API Bot Python-urllib/3.9",
+        "Authorization": BotKey
+        }
+
+def developer():
+    DevJsonData = json.loads(urlopen(Request("https://discord.com/api/v9/users/441865412804870144", headers=headers)).read().decode())
+    return DevJsonData
+
+DJD = developer()
+
 def setup():
-    BotKey = os.getenv("DISCORD_BOT_TOKEN")
-    headers = {
-            "Content-Type": "application/json",
-            "User-Agent": "Discord V9API Bot Python-urllib/3.9",
-            "Authorization": BotKey
-            }
-
-    print(DJD)
-    
     ID = DJD["id"]
     UNAME = DJD["username"]
     AVATAR = DJD["avatar"]
@@ -36,16 +39,16 @@ def setup():
     favicon.save("static/favicon.ico")
 
 @app.route("/")
-def index(test):
-    #CTX = DevInfo()
+def index():
+    CTX = DJD
     
-    #ID = CTX["id"]
-    #UNAME = CTX["username"]
-    #AVATAR = CTX["avatar"]
-    #DSCM = CTX["discriminator"]
-    #BANNER = CTX["banner"]
+    ID = CTX["id"]
+    UNAME = CTX["username"]
+    AVATAR = CTX["avatar"]
+    DSCM = CTX["discriminator"]
+    BANNER = CTX["banner"]
     
-    message = test #UNAME+"#"+DSCM
+    message = UNAME+"#"+DSCM
     
     return render_template("index.html", message=message)
 
