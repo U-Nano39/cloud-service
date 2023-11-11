@@ -1,4 +1,5 @@
 import os
+import main
 
 from PIL import Image
 
@@ -7,16 +8,19 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 from threading import Thread
 
+DJD = main.Discord().developer()
 app = Flask(__name__)
 
 #favicon.ico
-def DevInfo(DJD):
+def setup():
     BotKey = os.getenv("DISCORD_BOT_TOKEN")
     headers = {
             "Content-Type": "application/json",
             "User-Agent": "Discord V9API Bot Python-urllib/3.9",
             "Authorization": BotKey
             }
+
+    print(DJD)
     
     ID = DJD["id"]
     UNAME = DJD["username"]
@@ -52,9 +56,8 @@ def manage():
 def run():
     app.run(host="0.0.0.0", port="8000")
 
-def Elphelt(DD):
-    DevInfo(DD)
-    index("hello")
+def Elphelt():
+    setup()
     
     thread = Thread(target=run)
     thread.start()
