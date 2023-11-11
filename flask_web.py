@@ -10,25 +10,38 @@ from threading import Thread
 app = Flask(__name__)
 
 #favicon.ico
-def favicon(avatar):
-    BotKey = os.getenv("DISCORD_USER_TOKEN")
+def favicon(DJD):
+    BotKey = os.getenv("DISCORD_BOT_TOKEN")
     headers = {
             "Content-Type": "application/json",
-            "User-Agent": "Discord SelfBot Python-urllib/3.9",
+            "User-Agent": "Discord V9API Bot Python-urllib/3.9",
             "Authorization": BotKey
             }
     
+    ID = DJD["id"]
+    UNAME = DJD["username"]
+    AVATAR = DJD["avatar"]
+    DSCM = DJD["discriminator"]
+    BANNER = DJD["banner"]
+    
     with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{avatar}.jpg", headers=headers)).read())
+        fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{AVATAR}.jpg", headers=headers)).read())
         fvi.close()
     
     favicon = Image.open("static/images/favicon.jpg")
     favicon.save("static/favicon.ico")
-    
+
+    index(DJD)
 
 @app.route("/")
-def index():
-    return render_template("index.html")
+def index(CTX):
+    ID = CTX["id"]
+    UNAME = CTX["username"]
+    AVATAR = CTX["avatar"]
+    DSCM = CTX["discriminator"]
+    BANNER = CTX["banner"]
+    message = UNAME+"#"+DSCM
+    return render_template("index.html", message=message)
 
 @app.route("/manage")
 def manage():
