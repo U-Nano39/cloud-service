@@ -14,7 +14,7 @@ channel_id = [798566757101994015, 1114531313584709684]
 #channel id list memo 0:main server 1:namek free channel
 time_list = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00", "24:00"]
 
-BotKey = os.getenv("DISCORD_USER_TOKEN")
+BotKey = os.getenv("DISCORD_BOT_TOKEN") #os.getenv("DISCORD_USER_TOKEN")
 
 class Discord:
     def __init__(self, token) -> None:
@@ -100,4 +100,4 @@ if __name__ == "__main__":
         
         bump24 = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         if bump24.strftime("%H:%M") in time_list:
-            discord.bump_message()
+            pass #discord.bump_message()
