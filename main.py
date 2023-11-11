@@ -77,7 +77,7 @@ class Discord:
         response = urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[1]}/messages", headers=self.headers, data=json.dumps({"content": msg}).encode(), method="POST"))
         if response.getcode() == 200:
             print("Success.")
-        time.sleep(60)
+        time.sleep(1.5)
 
     def message_content(self):
         response = json.loads(urlopen(Request(f"https://discord.com/api/v9/channels/{channel_id[0]}/messages", headers=self.headers, method="GET")).read().decode())
@@ -107,4 +107,4 @@ if __name__ == "__main__":
         
         bump24 = datetime.datetime.utcnow() + datetime.timedelta(hours=9)
         if bump24.strftime("%H:%M") in time_list:
-            pass #discord.bump_message()
+            discord.bump_message()
