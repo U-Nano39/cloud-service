@@ -11,6 +11,15 @@ p {
     color: red;
 }
 
+h3, #list0 {
+    top: 0;
+    left: 0;
+}
+
+div {
+    text-align: center;
+}
+
 body {
     height: 100vh;
     background-image: url("images/background/Anarchy_Stocking.jpg");
