@@ -1,6 +1,6 @@
 console.log("Welcome to Qvey's Website.")
 
-const ul0 = document.querySelector("#list0")
+let ul0 = document.querySelector("#list0")
 
 ul0.addEventListener("mouseover", function() {
     ul0.style.textDecoration = "underline";
