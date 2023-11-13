@@ -12,8 +12,7 @@ p {
 }
 
 h3, #list0 {
-    top: 0;
-    left: 0;
+    position: absolute;
 }
 
 div {
