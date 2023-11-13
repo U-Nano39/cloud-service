@@ -15,10 +15,14 @@ window.addEventListener("DOMContentLoaded", function() {
 
     ul0.addEventListener("click", function() {
         const addc = document.querySelector("#ifm");
-        const ifm = document.createElement("iframe");
-        ifm.setAttribute("id", "ifm0")
-        ifm.src = "userlookup";
-        addc.appendChild(ifm);
-    })
+        if (document.querySelector("#ifm0") != null) {
+            console.log(0);
+        }else {
+            const ifm = document.createElement("iframe");
+            ifm.setAttribute("id", "ifm0");
+            ifm.src = "userlookup";
+            addc.appendChild(ifm);
+        }
+    });
     
 });
