@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", function() {
     ul0.addEventListener("click", function() {
         const addc = document.querySelector("#ifm");
         const ifm = document.createElement("iframe");
-        ifm.setAttribute("id", "ifm0)
+        ifm.setAttribute("id", "ifm0")
         ifm.src = "templates/DiscordUserLookUp.html";
         addc.appendChild(ifm);
     })
