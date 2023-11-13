@@ -57,6 +57,10 @@ def index():
 def manage():
     return render_template("LoginMethod.html")
 
+@app.route("/userlookup")
+def userlookup():
+        return render_template("DiscordUserLookUp.html")
+
 def run():
     app.run(host="0.0.0.0", port="8000")
 
