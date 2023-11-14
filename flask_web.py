@@ -82,7 +82,7 @@ def userlookup(user_id=0):
         excerpt = zzin[:42]
         unix = int(str(excerpt), 2) + 1420070400000
 
-        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0)
+        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
         CTX_D["ct_date"] = CT_DATE
             
         return render_template("DiscordUserLookUp.html", message=CTX_D)
