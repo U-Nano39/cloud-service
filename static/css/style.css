@@ -15,10 +15,10 @@ div {
     text-align: center;
 }
 
-#bgc-menu {
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.562);
-    background-size: cover;
+ul {
+    background-color: rgba(255, 255, 255, 0);
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #bg-color {
