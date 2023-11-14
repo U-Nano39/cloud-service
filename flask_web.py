@@ -19,6 +19,15 @@ headers = {
         "User-Agent": "Discord V9APIBot Python-urllib/3.9",
         "Authorization": f"Bot {base64.b64decode(BotKey).decode()}"
         }
+        
+def SNOWFLAKE(ID):
+    binary = bin(int(ID))[2:]
+    zzin = binary.zfill(64)
+    excerpt = zzin[:42]
+    unix = int(str(excerpt), 2) + 1420070400000
+
+    CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
+    return CT_DATE
 
 def USERDATA(USER_ID=None):
     if USER_ID is None:
@@ -33,42 +42,19 @@ def USERDICT(ID=None):
     if ID is None:
         USER = USERDATA()
         ID = USER["id"]
-        CTX_D = {}
-    
-        CTX_D["id"] = USER["id"]
-        CTX_D["uname"] = USER["username"]
-        CTX_D["avatar"] = USER["avatar"]
-        CTX_D["dscm"] = USER["discriminator"]
-        CTX_D["banner"] = USER["banner"]
 
-        binary = bin(int(ID))[2:]
-        zzin = binary.zfill(64)
-        excerpt = zzin[:42]
-        unix = int(str(excerpt), 2) + 1420070400000
-
-        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
-        CTX_D["ct_date"] = CT_DATE
+        CT_DATE = SNOWFLAKE(ID)
+        USER["ct_date"] = CT_DATE
         
-        return CTX_D
+        return USER
     else:
         USER = USERDATA(ID)
-        CTX_D = {}
-    
-        CTX_D["id"] = USER["id"]
-        CTX_D["uname"] = USER["username"]
-        CTX_D["avatar"] = USER["avatar"]
-        CTX_D["dscm"] = USER["discriminator"]
-        CTX_D["banner"] = USER["banner"]
+        ID = USER["id"]
 
-        binary = bin(int(ID))[2:]
-        zzin = binary.zfill(64)
-        excerpt = zzin[:42]
-        unix = int(str(excerpt), 2) + 1420070400000
-
-        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
-        CTX_D["ct_date"] = CT_DATE
+        CT_DATE = SNOWFLAKE(ID)
+        USER["ct_date"] = CT_DATE
     
-        return CTX_D
+        return USER
 
 def setup():
     DEV = USERDICT()
