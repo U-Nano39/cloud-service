@@ -1,6 +1,7 @@
 import os
 import json
 import base64
+import datetime
 
 from PIL import Image
 
@@ -62,7 +63,29 @@ def userlookup(user_id=0):
     if user_id == 0:
         return render_template("search.html")
     else:
-        return render_template("DiscordUserLookUp.html")
+        def DiscordUser():
+            DUserJsonData = json.loads(urlopen(Request("https://discord.com/api/v9/users/"+str(user_id), headers=headers)).read().decode())
+            return DUserJsonData
+
+        USER = DiscordUser()
+
+        CTX_D = {}
+
+        CTX_D["id"] = USER["id"]
+        CTX_D["uname"] = USER["username"]
+        CTX_D["avatar"] = USER["avatar"]
+        CTX_D["dscm"] = USER["discriminator"]
+        CTX_D["banner"] = USER["banner"]
+
+        binary = bin(int(user_id))[2:]
+        zzin = binary.zfill(64)
+        excerpt = zzin[:42]
+        unix = int(str(excerpt), 2) + 1420070400000
+
+        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0)
+        CTX_D["ct_date"] = CT_DATE
+            
+        return render_template("DiscordUserLookUp.html", message=CTX_D)
 
 def run():
     app.run(host="0.0.0.0", port="8000")
