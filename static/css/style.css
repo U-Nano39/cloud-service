@@ -15,11 +15,14 @@ div {
     text-align: center;
 }
 
+#bg-color {
+    background-color: rgba(255, 255, 255, 0.562);
+}
+
 body {
     height: 100vh;
     background-image: url("images/background/Anarchy_Stocking.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    background-color: rgba(255, 255, 255, 0.562);
 }
