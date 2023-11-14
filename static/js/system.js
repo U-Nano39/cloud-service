@@ -20,7 +20,7 @@ window.addEventListener("DOMContentLoaded", function() {
         }else {
             const ifm = document.createElement("iframe");
             ifm.setAttribute("id", "ifm0");
-            ifm.src = "userlookup";
+            ifm.src = "userlookup/0";
             addc.appendChild(ifm);
         }
     });
