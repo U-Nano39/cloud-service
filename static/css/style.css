@@ -15,6 +15,12 @@ div {
     text-align: center;
 }
 
+#bgc-menu {
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.562);
+    background-size: cover;
+}
+
 #bg-color {
     height: 100vh;
     background-color: rgba(255, 255, 255, 0.562);
