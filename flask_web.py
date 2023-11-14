@@ -72,7 +72,7 @@ def USERDICT(ID=None):
 
 def setup():
     DEV = USERDICT()
-    AVATAR = DEV.avatar
+    AVATAR = DEV["avatar"]
     
     with open("static/images/favicon.jpg", "wb") as fvi:
         fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{AVATAR}.jpg", headers=headers)).read())
