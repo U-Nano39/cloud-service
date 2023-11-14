@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", function() {
     ul0.addEventListener("click", function() {
         const addc = document.querySelector("#ifm");
         if (document.querySelector("#ifm0") != null) {
-            console.log(0);
+            document.querySelector("#ifm0").remove()
         }else {
             const ifm = document.createElement("iframe");
             ifm.setAttribute("id", "ifm0");
