@@ -20,18 +20,59 @@ headers = {
         "Authorization": f"Bot {base64.b64decode(BotKey).decode()}"
         }
 
-def developer():
-    DevJsonData = json.loads(urlopen(Request("https://discord.com/api/v9/users/441865412804870144", headers=headers)).read().decode())
-    return DevJsonData
+def USERDATA(USER_ID=None):
+    if USER_ID is None:
+        USER_ID = 441865412804870144
+    
+    JsonData = json.loads(urlopen(Request("https://discord.com/api/v9/users/"+str(USER_ID), headers=headers)).read().decode())
+    return JsonData
 
-DJD = developer()
+USER = USERDATA()
+
+def USERDICT(ID=None):
+    if ID is None:
+        USER = USERDATA()
+        ID = USER["id"]
+        CTX_D = {}
+    
+        CTX_D["id"] = USER["id"]
+        CTX_D["uname"] = USER["username"]
+        CTX_D["avatar"] = USER["avatar"]
+        CTX_D["dscm"] = USER["discriminator"]
+        CTX_D["banner"] = USER["banner"]
+
+        binary = bin(int(ID))[2:]
+        zzin = binary.zfill(64)
+        excerpt = zzin[:42]
+        unix = int(str(excerpt), 2) + 1420070400000
+
+        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
+        CTX_D["ct_date"] = CT_DATE
+        
+        return CTX_D
+    else:
+        USER = USERDATA(ID)
+        CTX_D = {}
+    
+        CTX_D["id"] = USER["id"]
+        CTX_D["uname"] = USER["username"]
+        CTX_D["avatar"] = USER["avatar"]
+        CTX_D["dscm"] = USER["discriminator"]
+        CTX_D["banner"] = USER["banner"]
+
+        binary = bin(int(ID))[2:]
+        zzin = binary.zfill(64)
+        excerpt = zzin[:42]
+        unix = int(str(excerpt), 2) + 1420070400000
+
+        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
+        CTX_D["ct_date"] = CT_DATE
+    
+        return CTX_D
 
 def setup():
-    ID = DJD["id"]
-    UNAME = DJD["username"]
-    AVATAR = DJD["avatar"]
-    DSCM = DJD["discriminator"]
-    BANNER = DJD["banner"]
+    DEV = USERDICT()
+    AVATAR = DEV.avatar
     
     with open("static/images/favicon.jpg", "wb") as fvi:
         fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{AVATAR}.jpg", headers=headers)).read())
@@ -42,17 +83,9 @@ def setup():
 
 @app.route("/")
 def index():
-    CTX_D = {}
-
-    CTX_D["id"] = DJD["id"]
-    CTX_D["uname"] = DJD["username"]
-    CTX_D["avatar"] = DJD["avatar"]
-    CTX_D["dscm"] = DJD["discriminator"]
-    CTX_D["banner"] = DJD["banner"]
-
-    CTX_D["owner"] = CTX_D["uname"]+"#"+CTX_D["dscm"]
+    DEVELOPER = USERDICT()
     
-    return render_template("index.html", message=CTX_D)
+    return render_template("index.html", message=DEVELOPER)
 
 @app.route("/manage")
 def manage():
@@ -63,29 +96,9 @@ def userlookup(user_id=0):
     if user_id == 0:
         return render_template("search.html")
     else:
-        def DiscordUser():
-            DUserJsonData = json.loads(urlopen(Request("https://discord.com/api/v9/users/"+str(user_id), headers=headers)).read().decode())
-            return DUserJsonData
-
-        USER = DiscordUser()
-
-        CTX_D = {}
-
-        CTX_D["id"] = USER["id"]
-        CTX_D["uname"] = USER["username"]
-        CTX_D["avatar"] = USER["avatar"]
-        CTX_D["dscm"] = USER["discriminator"]
-        CTX_D["banner"] = USER["banner"]
-
-        binary = bin(int(user_id))[2:]
-        zzin = binary.zfill(64)
-        excerpt = zzin[:42]
-        unix = int(str(excerpt), 2) + 1420070400000
-
-        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
-        CTX_D["ct_date"] = CT_DATE
+        message = USERDICT(user_id)
             
-        return render_template("DiscordUserLookUp.html", message=CTX_D)
+        return render_template("DiscordUserLookUp.html", message=message)
 
 def run():
     app.run(host="0.0.0.0", port="8000")
