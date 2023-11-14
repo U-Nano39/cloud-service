@@ -8,6 +8,6 @@ window.addEventListener("DOMContentLoaded", function() {
 
     search.addEventListener("click", function() {
         const ID = InputArea.value;
-        location.href = "../"+ID;
+        location.href = ID;
     });
 });
