@@ -57,9 +57,9 @@ def index():
 def manage():
     return render_template("LoginMethod.html")
 
-@app.route("/userlookup/<user_id>")
-def userlookup(user_id=None):
-    if user_id is None:
+@app.route("/userlookup/<int:user_id>")
+def userlookup(user_id=0):
+    if user_id == 0:
         return render_template("search.html")
     else:
         return render_template("DiscordUserLookUp.html")
