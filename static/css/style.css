@@ -11,11 +11,11 @@ p {
     color: red;
 }
 
-#bg {
+div {
     text-align: center;
 }
 
-body {
+#bg {
     height: 100vh;
     background-image: url("images/background/Anarchy_Stocking.jpg");
     background-repeat: no-repeat;
