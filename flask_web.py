@@ -49,7 +49,10 @@ USER = USERDATA()
 def USERDICT(ID=None):
     if ID is None:
         USER = USERDATA()
-        ID = USER["id"]
+        if "id" in USER:
+            ID = USER["id"]
+        else:
+            ID = 0
 
         CT_DATE = SNOWFLAKE(ID)
         USER["ct_date"] = CT_DATE
