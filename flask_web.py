@@ -26,14 +26,22 @@ def SNOWFLAKE(ID):
     excerpt = zzin[:42]
     unix = int(str(excerpt), 2) + 1420070400000
 
-    CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
+    try:
+        CT_DATE = datetime.datetime.fromtimestamp(unix/1000).replace(microsecond=0).strftime("%Y %m/%d %H:%M:%S")
+    except:
+        CT_DATE = None
+        
     return CT_DATE
 
 def USERDATA(USER_ID=None):
     if USER_ID is None:
         USER_ID = 441865412804870144
-    
-    JsonData = json.loads(urlopen(Request("https://discord.com/api/v9/users/"+str(USER_ID), headers=headers)).read().decode())
+        
+    try:
+        JsonData = json.loads(urlopen(Request("https://discord.com/api/v9/users/"+str(USER_ID), headers=headers)).read().decode())
+    except:
+        JsonData = {"ID": f"{USER_ID}", "NotFound": "そんなユーザーは居ない。"}
+        
     return JsonData
 
 USER = USERDATA()
