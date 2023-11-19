@@ -14,8 +14,10 @@
     <input id="InputArea" type="text" placeholder="ID" />
     <a id="search">検索</a>
     <script type="text/javascript" src="../static/js/lookup.js"></script>
+    <h5>検索結果</h5>
     {% if message %}
-    <p>{{ message }}</p>
+    <p>{{ message.username }}#{{ message.discriminator }}</p>
+    <p>ID: {{ message.id }}</p>
     {% endif %}
 </body>
 </html>
