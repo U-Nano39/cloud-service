@@ -104,6 +104,7 @@ def userlookup(uid="0"):
             except:
                 message = USERDICT(uid)
         else:
+            uid = 0
             message = USERDICT(uid)
             
         return render_template("DiscordUserLookUp.html", message=message)
