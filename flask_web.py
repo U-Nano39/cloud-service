@@ -99,7 +99,7 @@ def userlookup(uid=0):
     else:
         if uid.isdecimal() is True:
             try:
-                unicodedata.east_asian_width(uid):
+                unicodedata.east_asian_width(uid)
                 uid = unicodedata.normalize("NFKC", uid)
             except:
                 message = USERDICT(uid)
