@@ -62,6 +62,9 @@ def USERDICT(ID=None):
         else:
             ID = 0
 
+        if USER["discriminator"] == "0":
+            USER["discriminator"] = USER["discriminator"] + f"({USER['username']})"
+
         CT_DATE = SNOWFLAKE(ID)
         USER["ct_date"] = CT_DATE
     
