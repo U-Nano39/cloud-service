@@ -63,7 +63,8 @@ def USERDICT(ID=None):
         else:
             ID = 0
 
-        if USER["discriminator"] == "0":
+        if "discriminator" in USER:
+            if USER["discriminator"] == "0":
             USER["discriminator"] = USER["discriminator"] + f"({USER['username']})"
 
         CT_DATE = SNOWFLAKE(ID)
@@ -104,7 +105,7 @@ def userlookup(uid="0"):
             except:
                 message = USERDICT(uid)
         else:
-            uid = 0
+                
             message = USERDICT(uid)
             
         return render_template("DiscordUserLookUp.html", message=message)
