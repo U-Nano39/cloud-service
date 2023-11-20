@@ -95,7 +95,7 @@ def manage():
 
 @app.route("/userlookup/<uid>")
 def userlookup(uid="0"):
-    if uid == "0":
+    if uid == "0" or uid == "０":
         return render_template("search.html")
     else:
         if uid.isdecimal() is True:
