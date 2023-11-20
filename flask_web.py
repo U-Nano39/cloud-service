@@ -104,9 +104,7 @@ def userlookup(uid=0):
             except:
                 message = USERDICT(uid)
         else:
-            uid = "無効なIDです。"
-                    
-        message = USERDICT(uid)
+            message = USERDICT(uid)
             
         return render_template("DiscordUserLookUp.html", message=message)
 
