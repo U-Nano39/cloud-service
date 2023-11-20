@@ -102,10 +102,10 @@ def userlookup(uid="0"):
             try:
                 unicodedata.east_asian_width(uid)
                 uid = unicodedata.normalize("NFKC", uid)
+                message = USERDICT(uid)
             except:
                 message = USERDICT(uid)
         else:
-                
             message = USERDICT(uid)
             
         return render_template("DiscordUserLookUp.html", message=message)
