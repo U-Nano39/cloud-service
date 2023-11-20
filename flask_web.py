@@ -2,6 +2,7 @@ import os
 import json
 import base64
 import datetime
+import unicodedata
 
 from PIL import Image
 
@@ -91,12 +92,18 @@ def index():
 def manage():
     return render_template("LoginMethod.html")
 
-@app.route("/userlookup/<int:user_id>")
-def userlookup(user_id=0):
-    if user_id == 0:
+@app.route("/userlookup/<uid>")
+def userlookup(uid=0):
+    if uid == 0:
         return render_template("search.html")
     else:
-        message = USERDICT(user_id)
+        if uid.isdecimal() is True:
+            if "F" == unicodedata.east_asian_width(uid):
+                uid = unicodedata.normalize("NFKC", uid)
+        else:
+            uid = 0
+                    
+        message = USERDICT(uid)
             
         return render_template("DiscordUserLookUp.html", message=message)
 
