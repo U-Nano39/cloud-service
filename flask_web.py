@@ -98,8 +98,8 @@ def userlookup(uid="0"):
         return render_template("search.html")
     else:
         if uid.isdecimal() is True:
-            if "F" == unicodedata.east_asian_width(uid):
-                uid = unicodedata.normalize("NFKC", uid)
+            if "F" == unicodedata.east_asian_width(str(uid)):
+                uid = unicodedata.normalize("NFKC", str(uid))
                     
             message = USERDICT(uid)
         else:
