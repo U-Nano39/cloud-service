@@ -93,8 +93,8 @@ def manage():
     return render_template("LoginMethod.html")
 
 @app.route("/userlookup/<uid>")
-def userlookup(uid=0):
-    if uid == 0:
+def userlookup(uid="0"):
+    if uid == "0":
         return render_template("search.html")
     else:
         if uid.isdecimal() is True:
