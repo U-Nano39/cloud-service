@@ -93,15 +93,16 @@ def manage():
     return render_template("LoginMethod.html")
 
 @app.route("/userlookup/<uid>")
-def userlookup(uid="0"):
-    if uid == "0":
+def userlookup(uid=0):
+    if uid == 0:
         return render_template("search.html")
     else:
         if uid.isdecimal() is True:
-            if "F" == unicodedata.east_asian_width(str(uid)):
-                uid = unicodedata.normalize("NFKC", str(uid))
-                    
-            message = USERDICT(uid)
+            try:
+                unicodedata.east_asian_width(uid):
+                uid = unicodedata.normalize("NFKC", uid)
+            except:
+                message = USERDICT(uid)
         else:
             uid = "無効なIDです。"
                     
