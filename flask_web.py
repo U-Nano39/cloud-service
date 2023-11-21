@@ -103,10 +103,9 @@ def userlookup(uid="0"):
                 uid = unicodedata.normalize("NFKC", uid)
                     
         message = USERDICT(uid)
-    else:
-        message = USERDICT(0)
-            
         return render_template("DiscordUserLookUp.html", message=message)
+    else:
+        return render_template("NotFound.html")
 
 def run():
     app.run(host="0.0.0.0", port="8000")
