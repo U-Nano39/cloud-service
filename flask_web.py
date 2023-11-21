@@ -101,7 +101,8 @@ def userlookup(uid="0"):
         for digit in uid:
             if unicodedata.east_asian_width(digit) in "F":
                 uid = unicodedata.normalize("NFKC", uid)
-                message = USERDICT(uid)
+                    
+        message = USERDICT(uid)
     else:
         message = USERDICT(0)
             
