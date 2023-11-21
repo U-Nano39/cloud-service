@@ -105,7 +105,7 @@ def userlookup(uid="0"):
         message = USERDICT(uid)
         return render_template("DiscordUserLookUp.html", message=message)
     else:
-        return render_template("NotFound.html")
+        return render_template("NotFound.html", message="ユーザーが見つかりませんでした。")
 
 def run():
     app.run(host="0.0.0.0", port="8000")
