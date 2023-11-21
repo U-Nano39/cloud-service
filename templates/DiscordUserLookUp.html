@@ -17,8 +17,7 @@
     <h5>検索結果</h5>
     <div id="result">
         {% if message %}
-        <p>{{ message.username }}#{{ message.discriminator }}</p>
-        <p>ID: {{ message.id }}</p>
+        {{ message }}
         {% endif %}
     </div>
 </body>
