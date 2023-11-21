@@ -97,16 +97,13 @@ def manage():
 def userlookup(uid="0"):
     if uid == "0" or uid == "０":
         return render_template("search.html")
-    else:
-        if uid.isdecimal() is True:
-            try:
-                unicodedata.east_asian_width(uid)
+    elif uid.isdecimal() is True:
+        for digit in uid:
+            if unicodedata.east_asian_width(digit) in "F":
                 uid = unicodedata.normalize("NFKC", uid)
                 message = USERDICT(uid)
-            except:
-                message = USERDICT(uid)
-        else:
-            message = USERDICT(uid)
+    else:
+        message = USERDICT(0)
             
         return render_template("DiscordUserLookUp.html", message=message)
 
