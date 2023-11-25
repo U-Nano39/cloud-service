@@ -72,7 +72,7 @@ def USERDICT(ID=None):
 def setup():
     DEV = USERDICT()
     ID = DEV["id"]
-    IMAGE_URL = f"https://cdn.discordapp.com/avatars/"
+    IMAGE_URL = "https://cdn.discordapp.com/avatars/"
     AVATAR = DEV["avatar"]
     
     if AVATAR != "None":
@@ -87,7 +87,7 @@ def setup():
         IMAGE_URL = "https://discordapp.com/"
     
     with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(Request(IMAGE_URL+ID+AVATAR, headers=headers)).read())
+        fvi.write(urlopen(Request(IMAGE_URL+ID+"/"+AVATAR, headers=headers)).read())
         fvi.close()
     
     favicon = Image.open("static/images/favicon.jpg")
