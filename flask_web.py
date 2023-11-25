@@ -60,7 +60,7 @@ def USERDICT(ID=None):
         USER = USERDATA(ID)
         
         if USER is None:
-            return "Not Found User."
+            return None
         else:
             ID = USER["id"]
 
@@ -71,15 +71,23 @@ def USERDICT(ID=None):
 
 def setup():
     DEV = USERDICT()
+    ID = DEV["id"]
+    IMAGE_URL = f"https://cdn.discordapp.com/avatars/"
     AVATAR = DEV["avatar"]
     
-    if AVATAR.startswith("a_"):
-        AVATAR = AVATAR+".gif"
+    if AVATAR != "None":
+        if AVATAR.startswith("a_"):
+            AVATAR = AVATAR+".gif"
+        else:
+            AVATAR = AVATAR+".jpg"
     else:
-        AVATAR = AVATAR+".jpg"
+        #https://discordapp.com/assets/
+        AVATAR = "5ccabf62108d5a8074ddd95af2211727"+".png"
+        ID = "assets"
+        IMAGE_URL = "https://discordapp.com/"
     
     with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{AVATAR}", headers=headers)).read())
+        fvi.write(urlopen(Request(IMAGE_URL+ID+AVATAR, headers=headers)).read())
         fvi.close()
     
     favicon = Image.open("static/images/favicon.jpg")
@@ -106,23 +114,27 @@ def userlookup(uid="0"):
                     
         USER = USERDICT(uid)
         
-        DSCM = USER["discriminator"]
-        AVATAR = USER["avatar"]
-        AVATAR_DECO = USER["avatar_decoration_data"]
-
-        if DSCM == "0":
-            DSCM = DSCM + f" ({USER['username']})"
+        if USER != None:
         
-        if AVATAR != "None":
-            if AVATAR.startswith("a_"):
-                AVATAR = AVATAR+".gif"
+            DSCM = USER["discriminator"]
+            AVATAR = USER["avatar"]
+            AVATAR_DECO = USER["avatar_decoration_data"]
+
+            if DSCM == "0":
+                DSCM = DSCM + f" ({USER['username']})"
+        
+            if AVATAR != "None":
+                if AVATAR.startswith("a_"):
+                    AVATAR = AVATAR+".gif"
+                else:
+                    AVATAR = AVATAR+".jpg"
             else:
-                AVATAR = AVATAR+".jpg"
-        else:
-            #https://discordapp.com/assets/
-            AVATAR = "5ccabf62108d5a8074ddd95af2211727"+".png"
+                #https://discordapp.com/assets/
+                AVATAR = "5ccabf62108d5a8074ddd95af2211727"+".png"
             
-        USER["background"] = f"https://cdn.discordapp.com/avatars/202968982339190785/a_e93ab99aca2c26c27e7e05492654446f.gif"
+            USER["background"] = f"https://cdn.discordapp.com/avatars/202968982339190785/a_e93ab99aca2c26c27e7e05492654446f.gif"
+        else:
+            USER = "Not Found User."
         
         return render_template("DiscordUserLookUp.html", message=USER)
     else:
