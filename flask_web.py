@@ -132,7 +132,6 @@ def userlookup(uid="0"):
                 #https://discordapp.com/assets/
                 AVATAR = "5ccabf62108d5a8074ddd95af2211727"+".png"
             
-            USER["background"] = f"https://cdn.discordapp.com/avatars/202968982339190785/a_e93ab99aca2c26c27e7e05492654446f.gif"
         else:
             USER = "Not Found User."
         
