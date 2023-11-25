@@ -41,7 +41,7 @@ def USERDATA(USER_ID=None):
     try:
         JsonData = json.loads(urlopen(Request("https://discord.com/api/v9/users/"+str(USER_ID), headers=headers)).read().decode())
     except:
-        JsonData = {"ID": f"{USER_ID}", "NotFound": "そんなユーザーは居ない。"}
+        JsonData = None
         
     return JsonData
 
@@ -58,14 +58,11 @@ def USERDICT(ID=None):
         return USER
     else:
         USER = USERDATA(ID)
-        if "id" in USER:
-            ID = USER["id"]
+        
+        if USER is None:
+            return "Not Found User."
         else:
-            ID = 0
-
-        if "discriminator" in USER:
-            if USER["discriminator"] == "0":
-                USER["discriminator"] = USER["discriminator"] + f"({USER['username']})"
+            ID = USER["id"]
 
         CT_DATE = SNOWFLAKE(ID)
         USER["ct_date"] = CT_DATE
@@ -76,8 +73,13 @@ def setup():
     DEV = USERDICT()
     AVATAR = DEV["avatar"]
     
+    if AVATAR.startswith("a_"):
+        AVATAR = AVATAR+".gif"
+    else:
+        AVATAR = AVATAR+".jpg"
+    
     with open("static/images/favicon.jpg", "wb") as fvi:
-        fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{AVATAR}.jpg", headers=headers)).read())
+        fvi.write(urlopen(Request(f"https://cdn.discordapp.com/avatars/441865412804870144/{AVATAR}", headers=headers)).read())
         fvi.close()
     
     favicon = Image.open("static/images/favicon.jpg")
@@ -102,8 +104,27 @@ def userlookup(uid="0"):
             if unicodedata.east_asian_width(digit) in "F":
                 uid = unicodedata.normalize("NFKC", uid)
                     
-        message = USERDICT(uid)
-        return render_template("DiscordUserLookUp.html", message=message)
+        USER = USERDICT(uid)
+        
+        DSCM = USER["discriminator"]
+        AVATAR = USER["avatar"]
+        AVATAR_DECO = USER["avatar_decoration_data"]
+
+        if DSCM == "0":
+            DSCM = DSCM + f" ({USER['username']})"
+        
+        if AVATAR != "None":
+            if AVATAR.startswith("a_"):
+                AVATAR = AVATAR+".gif"
+            else:
+                AVATAR = AVATAR+".jpg"
+        else:
+            #https://discordapp.com/assets/
+            AVATAR = "5ccabf62108d5a8074ddd95af2211727"+".png"
+            
+        USER["background"] = f"https://cdn.discordapp.com/avatars/202968982339190785/a_e93ab99aca2c26c27e7e05492654446f.gif"
+        
+        return render_template("DiscordUserLookUp.html", message=USER)
     else:
         return render_template("NotFound.html", message="ユーザーが見つかりませんでした。")
 
