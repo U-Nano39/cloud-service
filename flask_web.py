@@ -124,7 +124,7 @@ def userlookup(uid="0"):
                 DSCM = DSCM + f" ({USER['username']})"
         
             if AVATAR != "None":
-                if AVATAR.startswith("a_"):
+                if AVATAR[:2] == "a_":
                     AVATAR = AVATAR+".gif"
                 else:
                     AVATAR = AVATAR+".jpg"
