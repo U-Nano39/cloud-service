@@ -114,7 +114,7 @@ def userlookup(uid="0"):
                     
         USER = USERDICT(uid)
         
-        if USER != None:
+        if USER is not None:
         
             DSCM = USER["discriminator"]
             AVATAR = USER["avatar"]
